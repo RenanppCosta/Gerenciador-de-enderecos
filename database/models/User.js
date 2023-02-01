@@ -25,14 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     {
         tableName: "users",
         timestamps: false,
-        instanceMethods: {
-            generateHash(senha){
-                return bcrypt.hash(senha, 10);
-            },
-            validPassword(senha){
-                return bcrypt.compareSync(senha, this.senha);
-            }
-        }
     })
 
     return User;

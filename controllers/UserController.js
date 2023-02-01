@@ -19,7 +19,7 @@ const createUser = async (req,res)=>{
 
 const getAllUser = async (req,res)=>{
     try {
-        const allUser = db.User.findAll();
+        const allUser = await db.User.findAll();
         return res.json(allUser);
     } catch (err) {
         res.status(500).send({message: err.message});
@@ -52,7 +52,7 @@ const updateUser = async (req,res)=>{
             }
         });
 
-        return res.json(userUpdate);
+        return res.json({name, email, senha});
 
     } catch (err) {
         res.status(500).send({message: err.message});
