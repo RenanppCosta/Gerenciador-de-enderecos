@@ -27,5 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
     })
 
+    User.associate = (models) =>{
+        User.hasMany(models.Address, {
+            foreingKey: "user_id",
+            as:"address"
+        })
+    }
+
     return User;
 }

@@ -62,9 +62,9 @@ const updateUser = async (req,res)=>{
 const deleteUser = async (req,res)=>{
     const { id } = req.params;
     try {
-        const userDelete = await db.User.destroy({where: {id}})
+        await db.User.destroy({where: {id}})
 
-        return res.json(userDelete);
+        return res.send("Usuário deletado");
 
     } catch (err) {
         res.status(500).send({message: err.message});
