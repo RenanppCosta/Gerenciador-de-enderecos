@@ -1,4 +1,5 @@
 const db = require("../database/models");
+const jwt = require("jsonwebtoken");
 
 const createUser = async (req,res)=>{
     const { name, email, senha } = req.body;
@@ -71,10 +72,32 @@ const deleteUser = async (req,res)=>{
     }
 }
 
+const login = async (req, res)=>{
+    const {email, senha} = req.body;
+    try {
+        const user = await db.User.findOne({
+            where:{
+                email,
+                senha
+            }
+        })
+        
+        if(!user){
+            return res.status(401).json("Usuário e/ou senha estão errados.")
+        }
+
+        const token = jwt.sign({id:user.id}, process.env.SECRET, {expiresIn: "24h"});
+        return res.json({token});
+    } catch (err) {
+        res.status(500).send({message: err.message});
+    }
+}
+
 module.exports = {
     createUser,
     getAllUser,
     getUserByid,
     updateUser,
-    deleteUser
+    deleteUser,
+    login
 }

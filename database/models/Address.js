@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Address.associate = (models) =>{
         Address.belongsTo(models.User, {
-            foreingKey: "user_id",
+            foreignKey: "user_id",
             as: "user"
         })
     }
